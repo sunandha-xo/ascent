@@ -147,7 +147,7 @@ SOFTWARE.
 **[Sunandha S]**
 - GitHub: [sunandha-xo] https://github.com/sunandha-xo
 
-- Devpost: [your-devpost-profile](https://devpost.com/your-username)
+- Devpost: https://devpost.com/sunandhaselvaraj124?ref_content=user-portfolio&ref_feature=portfolio&ref_medium=global-nav
 
 ---
 
