@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI Career Roadmap</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+           <div class="nav-brand">⛰️ Ascent</div>
+            <div class="nav-menu">
+                <a href="/dashboard" class="nav-link active">Home</a>
+                <a href="/streaks" class="nav-link">Streaks</a>
+                <a href="/submissions" class="nav-link">Submissions</a>
+                <a href="/pomodoro" class="nav-link">Pomodoro</a>
+                <a href="/todos" class="nav-link">To-Do</a>
+                <div class="nav-user">
+                    <span>👤 {{ username }}</span>
+                    <a href="/logout" class="logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="welcome-section">
+            <h1>Welcome back, {{ username }}! 👋</h1>
+            <p>Generate your personalized learning roadmap and start your journey today</p>
+        </div>
+
+        <!-- Roadmap Generator -->
+        <div class="generator-section">
+            <div class="input-card">
+                <h2>🎯 Generate Your Career Roadmap</h2>
+                <p class="card-subtitle">Enter your dream career and get a detailed 6-month learning plan</p>
+                
+                <div class="input-group">
+                    <label for="careerInput">What do you want to become?</label>
+                    <input type="text" id="careerInput" placeholder="e.g., Data Analyst, Web Developer, UI/UX Designer">
+                </div>
+                
+                <button class="generate-btn" id="generateBtn">
+                    <span class="btn-text">Generate Roadmap</span>
+                    <span class="btn-icon">✨</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>🤖 Creating your personalized roadmap...</p>
+        </div>
+
+        <!-- Roadmap Display -->
+        <div class="roadmap-section" id="roadmapSection">
+            <div class="roadmap-header">
+                <h2>📚 Your Learning Roadmap</h2>
+                <button class="download-btn" onclick="downloadRoadmap()">Download PDF</button>
+            </div>
+            <div class="roadmap-content" id="output"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaks - AI Career Roadmap</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">⛰️ Ascent</div>
+            <div class="nav-menu">
+                <a href="/dashboard" class="nav-link">Home</a>
+                <a href="/streaks" class="nav-link active">Streaks</a>
+                <a href="/submissions" class="nav-link">Submissions</a>
+                <a href="/pomodoro" class="nav-link">Pomodoro</a>
+                <a href="/todos" class="nav-link">To-Do</a>
+                <div class="nav-user">
+                    <span>👤 {{ username }}</span>
+                    <a href="/logout" class="logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="page-header">
+            <h1>🔥 Your Learning Streak</h1>
+            <p>Track your daily progress and maintain consistency</p>
+        </div>
+
+        <!-- Streak Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🔥</div>
+                <div class="stat-value" id="streakDisplay">0</div>
+                <div class="stat-label">Day Streak</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">📝</div>
+                <div class="stat-value" id="submissionCount">0</div>
+                <div class="stat-label">Total Submissions</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-value" id="longestStreak">0</div>
+                <div class="stat-label">Longest Streak</div>
+            </div>
+        </div>
+
+        <!-- Contribution Graph -->
+        <div class="card">
+            <div class="card-header">
+                <h2>📊 Activity Graph</h2>
+                <div class="view-controls">
+                    <button class="view-btn active" onclick="setGraphView('year')">Year</button>
+                    <button class="view-btn" onclick="setGraphView('month')">Month</button>
+                </div>
+            </div>
+            <div class="contribution-graph" id="contributionGraph"></div>
+            <div class="contribution-legend">
+                <span>Less</span>
+                <div class="legend-box level-0"></div>
+                <div class="legend-box level-1"></div>
+                <div class="legend-box level-2"></div>
+                <div class="legend-box level-3"></div>
+                <div class="legend-box level-4"></div>
+                <span>More</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='streaks.js') }}"></script>
+</body>
+</html>

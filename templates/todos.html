@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List - AI Career Roadmap</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+           <div class="nav-brand">⛰️ Ascent</div>
+            <div class="nav-menu">
+                <a href="/dashboard" class="nav-link">Home</a>
+                <a href="/streaks" class="nav-link">Streaks</a>
+                <a href="/submissions" class="nav-link">Submissions</a>
+                <a href="/pomodoro" class="nav-link">Pomodoro</a>
+                <a href="/todos" class="nav-link active">To-Do</a>
+                <div class="nav-user">
+                    <span>👤 {{ username }}</span>
+                    <a href="/logout" class="logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>✅ Daily To-Do List</h1>
+            <p>Organize your daily tasks and track progress</p>
+        </div>
+
+        <div class="card" style="max-width:700px; margin:0 auto;">
+            <div style="display:flex; gap:10px; margin-bottom:20px;">
+                <input type="text" id="todoInput" placeholder="Add a new task..." 
+                       style="flex:1; padding:12px; border:2px solid #e0e0e0; border-radius:8px;">
+                <button class="btn" onclick="addTodo()">Add</button>
+            </div>
+            
+            <div id="todoList"></div>
+            
+            <div style="background:#e0e0e0; height:25px; border-radius:10px; margin-top:20px; overflow:hidden;">
+                <div id="progress" style="background:#4CAF50; height:100%; width:0%; transition:width 0.3s; 
+                     display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; font-size:0.9em;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    let todos = [];
+
+    async function loadTodos() {
+        const response = await fetch('/api/user-data');
+        const data = await response.json();
+        todos = data.todos || [];
+        renderTodos();
+    }
+
+    async function saveTodos() {
+        const response = await fetch('/api/user-data');
+        const data = await response.json();
+        await fetch('/api/save-user-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ submissions: data.submissions, todos, streak: data.streak })
+        });
+    }
+
+    function addTodo() {
+        const input = document.getElementById('todoInput');
+        const text = input.value.trim();
+        if (text) {
+            todos.push({ text, completed: false });
+            input.value = '';
+            renderTodos();
+            saveTodos();
+        }
+    }
+
+    function toggleTodo(index) {
+        todos[index].completed = !todos[index].completed;
+        renderTodos();
+        saveTodos();
+    }
+
+    function deleteTodo(index) {
+        todos.splice(index, 1);
+        renderTodos();
+        saveTodos();
+    }
+
+    function renderTodos() {
+        const list = document.getElementById('todoList');
+        list.innerHTML = todos.map((todo, i) => `
+            <div style="display:flex; align-items:center; gap:10px; padding:12px; background:#f9f9f9; 
+                 border-radius:8px; margin-bottom:10px; ${todo.completed ? 'opacity:0.6; text-decoration:line-through;' : ''}">
+                <input type="checkbox" ${todo.completed ? 'checked' : ''} 
+                       onchange="toggleTodo(${i})" style="width:20px; height:20px; cursor:pointer;">
+                <span style="flex:1;">${todo.text}</span>
+                <button onclick="deleteTodo(${i})" 
+                        style="background:#f44336; color:white; border:none; padding:5px 10px; 
+                        border-radius:5px; cursor:pointer; font-size:1.2em;">×</button>
+            </div>
+        `).join('');
+        
+        const completed = todos.filter(t => t.completed).length;
+        const total = todos.length;
+        const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+        const progress = document.getElementById('progress');
+        progress.style.width = percentage + '%';
+        progress.textContent = percentage + '%';
+    }
+
+    document.getElementById('todoInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') addTodo();
+    });
+
+    window.onload = loadTodos;
+    </script>
+</body>
+</html>

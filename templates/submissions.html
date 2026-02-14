@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submissions - AI Career Roadmap</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">⛰️ Ascent</div>
+            <div class="nav-menu">
+                <a href="/dashboard" class="nav-link">Home</a>
+                <a href="/streaks" class="nav-link">Streaks</a>
+                <a href="/submissions" class="nav-link active">Submissions</a>
+                <a href="/pomodoro" class="nav-link">Pomodoro</a>
+                <a href="/todos" class="nav-link">To-Do</a>
+                <div class="nav-user">
+                    <span>👤 {{ username }}</span>
+                    <a href="/logout" class="logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>📝 Daily Submissions</h1>
+            <p>Submit your daily work to maintain your streak</p>
+        </div>
+
+        <div class="card">
+            <h2>Submit Today's Work</h2>
+            <div class="input-group">
+                <label>What did you complete?</label>
+                <input type="text" id="title" placeholder="e.g., Completed Week 1 Tasks">
+            </div>
+            <div class="input-group">
+                <label>Description</label>
+                <textarea id="description" rows="4" placeholder="Describe what you learned..."></textarea>
+            </div>
+            <button class="btn" onclick="submitWork()">Submit ✓</button>
+        </div>
+
+        <div class="card">
+            <h2>Submission History</h2>
+            <div id="historyList"></div>
+        </div>
+    </div>
+
+    <script>
+    async function submitWork() {
+        const title = document.getElementById('title').value.trim();
+        const description = document.getElementById('description').value.trim();
+        
+        if (!title || !description) {
+            alert('Please fill in all fields');
+            return;
+        }
+        
+        try {
+            const response = await fetch('/api/user-data');
+            const data = await response.json();
+            const submissions = data.submissions || [];
+            
+            submissions.unshift({
+                date: new Date().toDateString(),
+                title,
+                description,
+                day: submissions.length + 1
+            });
+            
+            await fetch('/api/save-user-data', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ submissions, todos: data.todos, streak: submissions.length })
+            });
+            
+            alert('Submission successful!');
+            document.getElementById('title').value = '';
+            document.getElementById('description').value = '';
+            loadHistory();
+        } catch (error) {
+            alert('Error submitting work');
+        }
+    }
+    
+    async function loadHistory() {
+        const response = await fetch('/api/user-data');
+        const data = await response.json();
+        const submissions = data.submissions || [];
+        
+        const list = document.getElementById('historyList');
+        list.innerHTML = submissions.map(s => `
+            <div style="padding:15px; background:#f9f9f9; margin:10px 0; border-radius:8px;">
+                <strong>Day ${s.day}: ${s.title}</strong>
+                <p style="color:#666; margin-top:5px;">${s.description}</p>
+                <small style="color:#999;">${s.date}</small>
+            </div>
+        `).join('');
+    }
+    
+    window.onload = loadHistory;
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pomodoro - AI Career Roadmap</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">⛰️ Ascent</div>
+            <div class="nav-menu">
+                <a href="/dashboard" class="nav-link">Home</a>
+                <a href="/streaks" class="nav-link">Streaks</a>
+                <a href="/submissions" class="nav-link">Submissions</a>
+                <a href="/pomodoro" class="nav-link active">Pomodoro</a>
+                <a href="/todos" class="nav-link">To-Do</a>
+                <div class="nav-user">
+                    <span>👤 {{ username }}</span>
+                    <a href="/logout" class="logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>⏱️ Pomodoro Timer</h1>
+            <p>Stay focused with the Pomodoro technique</p>
+        </div>
+
+        <div class="card" style="max-width:600px; margin:0 auto;">
+            <div style="text-align:center;">
+                <div style="display:flex; gap:10px; justify-content:center; margin-bottom:20px;">
+                    <button class="btn" onclick="setMode(25)">Work (25min)</button>
+                    <button class="btn" onclick="setMode(5)">Short Break (5min)</button>
+                    <button class="btn" onclick="setMode(15)">Long Break (15min)</button>
+                </div>
+                
+                <div id="timer" style="font-size:5em; font-family:monospace; color:#667eea; margin:30px 0;">25:00</div>
+                
+                <div style="display:flex; gap:10px; justify-content:center;">
+                    <button class="btn" onclick="startTimer()" style="background:#4CAF50;">Start</button>
+                    <button class="btn" onclick="pauseTimer()" style="background:#ff9800;">Pause</button>
+                    <button class="btn" onclick="resetTimer()" style="background:#f44336;">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    let timeLeft = 25 * 60;
+    let interval;
+    let isRunning = false;
+
+    function setMode(minutes) {
+        pauseTimer();
+        timeLeft = minutes * 60;
+        updateDisplay();
+    }
+
+    function startTimer() {
+        if (!isRunning) {
+            isRunning = true;
+            interval = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateDisplay();
+                } else {
+                    pauseTimer();
+                    alert('Time is up!');
+                }
+            }, 1000);
+        }
+    }
+
+    function pauseTimer() {
+        isRunning = false;
+        clearInterval(interval);
+    }
+
+    function resetTimer() {
+        pauseTimer();
+        timeLeft = 25 * 60;
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        document.getElementById('timer').textContent = 
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+    </script>
+</body>
+</html>
