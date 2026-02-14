@@ -1,101 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: 'Press Start 2P', monospace;
+    background: #0B1120;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Pixel grid background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 4px,
+            rgba(34, 211, 238, 0.03) 4px,
+            rgba(34, 211, 238, 0.03) 8px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 4px,
+            rgba(34, 211, 238, 0.03) 4px,
+            rgba(34, 211, 238, 0.03) 8px
+        );
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Animated stars */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(2px 2px at 20% 30%, #22D3EE, transparent),
+        radial-gradient(2px 2px at 60% 70%, #8B5CF6, transparent),
+        radial-gradient(1px 1px at 50% 50%, #4ADE80, transparent),
+        radial-gradient(1px 1px at 80% 10%, #FACC15, transparent),
+        radial-gradient(2px 2px at 90% 60%, #22D3EE, transparent),
+        radial-gradient(1px 1px at 33% 80%, #8B5CF6, transparent);
+    background-size: 200% 200%;
+    animation: stars 8s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: 0;
+}
+
+@keyframes stars {
+    0%, 100% { transform: scale(1) translateY(0); opacity: 0.4; }
+    50% { transform: scale(1.2) translateY(-10px); opacity: 0.6; }
 }
 
 .auth-container {
     width: 100%;
-    max-width: 450px;
+    max-width: 500px;
+    position: relative;
+    z-index: 1;
 }
 
 .auth-box {
-    background: white;
+    background: #111827;
     padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    border: 4px solid #22D3EE;
+    position: relative;
+    box-shadow: 
+        0 0 20px rgba(34, 211, 238, 0.3),
+        inset 0 0 40px rgba(34, 211, 238, 0.05),
+        8px 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Pixel corner decorations */
+.auth-box::before,
+.auth-box::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #22D3EE;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+}
+
+.auth-box::before {
+    top: -4px;
+    left: -4px;
+}
+
+.auth-box::after {
+    bottom: -4px;
+    right: -4px;
+}
+
+/* Mountain pixel art */
+.auth-box > h1::before {
+    content: '⛰️';
+    display: block;
+    font-size: 60px;
+    text-align: center;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5));
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
 h1 {
-    color: #667eea;
-    font-size: 2em;
+    color: #22D3EE;
+    font-size: 28px;
     margin-bottom: 10px;
     text-align: center;
+    text-shadow: 
+        2px 2px 0 #0E7490,
+        4px 4px 0 rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(34, 211, 238, 0.5);
+    letter-spacing: 2px;
+    line-height: 1.6;
 }
 
 .subtitle {
     text-align: center;
-    color: #666;
+    color: #8B5CF6;
     margin-bottom: 30px;
+    font-size: 10px;
+    line-height: 1.6;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
 }
 
 .input-group {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .input-group label {
     display: block;
-    margin-bottom: 8px;
-    color: #333;
-    font-weight: 600;
+    margin-bottom: 12px;
+    color: #A78BFA;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .input-group input {
     width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s;
+    padding: 16px;
+    border: 3px solid #1F2937;
+    background: #0B1120;
+    color: #22D3EE;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    transition: all 0.3s;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .input-group input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #22D3EE;
+    box-shadow: 
+        inset 0 0 20px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(34, 211, 238, 0.3);
+    background: #111827;
+}
+
+.input-group input::placeholder {
+    color: #374151;
+    font-size: 10px;
 }
 
 .auth-btn {
     width: 100%;
-    padding: 15px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: 600;
+    padding: 18px;
+    background: #22D3EE;
+    color: #0B1120;
+    border: 3px solid #06B6D4;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    font-weight: bold;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: all 0.1s;
     margin-top: 10px;
+    position: relative;
+    box-shadow: 
+        0 6px 0 #0E7490,
+        0 0 20px rgba(34, 211, 238, 0.4);
+    letter-spacing: 2px;
 }
 
 .auth-btn:hover {
+    background: #06B6D4;
     transform: translateY(-2px);
+    box-shadow: 
+        0 8px 0 #0E7490,
+        0 0 30px rgba(34, 211, 238, 0.6);
+}
+
+.auth-btn:active {
+    transform: translateY(4px);
+    box-shadow: 
+        0 2px 0 #0E7490,
+        0 0 10px rgba(34, 211, 238, 0.3);
+}
+
+/* Pixel loading animation */
+.auth-btn::before {
+    content: '▶';
+    position: absolute;
+    left: 20px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
 }
 
 .switch-auth {
     text-align: center;
-    margin-top: 20px;
-    color: #666;
+    margin-top: 24px;
+    color: #6B7280;
+    font-size: 10px;
+    line-height: 1.8;
 }
 
 .switch-auth a {
-    color: #667eea;
+    color: #8B5CF6;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: bold;
+    transition: all 0.3s;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
 }
 
 .switch-auth a:hover {
-    text-decoration: underline;
+    color: #A78BFA;
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+}
+
+/* Scanline effect */
+.auth-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(34, 211, 238, 0.03) 2px,
+        rgba(34, 211, 238, 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 10;
 }
 
 @media (max-width: 768px) {
@@ -104,6 +284,29 @@ h1 {
     }
     
     h1 {
-        font-size: 1.6em;
+        font-size: 20px;
     }
+
+    .subtitle {
+        font-size: 9px;
+    }
+
+    .input-group input {
+        font-size: 10px;
+        padding: 12px;
+    }
+
+    .auth-btn {
+        font-size: 12px;
+        padding: 14px;
+    }
+}
+
+/* Custom pixel cursor - Visible and stylish */
+* {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect x="0" y="0" width="4" height="4" fill="%2322D3EE"/><rect x="0" y="4" width="4" height="4" fill="%2322D3EE"/><rect x="0" y="8" width="4" height="4" fill="%2322D3EE"/><rect x="0" y="12" width="4" height="4" fill="%2322D3EE"/><rect x="0" y="16" width="4" height="4" fill="%2322D3EE"/><rect x="4" y="4" width="4" height="4" fill="%2322D3EE"/><rect x="4" y="8" width="4" height="4" fill="%2322D3EE"/><rect x="4" y="12" width="4" height="4" fill="%2322D3EE"/><rect x="8" y="8" width="4" height="4" fill="%2322D3EE"/><rect x="8" y="12" width="4" height="4" fill="%2322D3EE"/><rect x="12" y="12" width="4" height="4" fill="%2322D3EE"/><rect x="0" y="0" width="2" height="2" fill="%230E7490"/><rect x="4" y="4" width="2" height="2" fill="%230E7490"/><rect x="8" y="8" width="2" height="2" fill="%230E7490"/></svg>') 0 0, auto;
+}
+
+button, a, input, .graph-day, .nav-link, .auth-btn, .btn, .generate-btn, .logout-btn {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect x="4" y="0" width="4" height="4" fill="%238B5CF6"/><rect x="0" y="4" width="4" height="4" fill="%238B5CF6"/><rect x="4" y="4" width="4" height="4" fill="%238B5CF6"/><rect x="8" y="4" width="4" height="4" fill="%238B5CF6"/><rect x="12" y="4" width="4" height="4" fill="%238B5CF6"/><rect x="0" y="8" width="4" height="4" fill="%238B5CF6"/><rect x="4" y="8" width="4" height="4" fill="%238B5CF6"/><rect x="8" y="8" width="4" height="4" fill="%238B5CF6"/><rect x="12" y="8" width="4" height="4" fill="%238B5CF6"/><rect x="4" y="12" width="4" height="4" fill="%238B5CF6"/><rect x="8" y="12" width="4" height="4" fill="%238B5CF6"/><rect x="12" y="12" width="4" height="4" fill="%238B5CF6"/><rect x="8" y="16" width="4" height="4" fill="%238B5CF6"/><rect x="6" y="2" width="2" height="2" fill="%23A78BFA"/></svg>') 4 4, pointer;
 }
