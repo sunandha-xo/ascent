@@ -115,7 +115,7 @@ This project is licensed under the MIT License - see below for details.
 ```
 MIT License
 
-Copyright (c) 2026 [Your Name]
+Copyright (c) 2026 Sunandha S
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -144,12 +144,12 @@ SOFTWARE.
 
 ## 👨‍💻 Author
 
-**[Your Name]**
-- GitHub: [@your-username](https://github.com/your-username)
+**[Sunandha S]**
+- GitHub: [sunandha-xo](https://github.com/your-username)
 - Devpost: [your-devpost-profile](https://devpost.com/your-username)
 
 ---
 
-⭐ If this project helped you, please give it a star!
+
 
 🏔️ **Start your climb to career success with Ascent today!**
