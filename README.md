@@ -145,7 +145,8 @@ SOFTWARE.
 ## 👨‍💻 Author
 
 **[Sunandha S]**
-- GitHub: [sunandha-xo](https://github.com/your-username)
+- GitHub: [sunandha-xo] https://github.com/sunandha-xo
+
 - Devpost: [your-devpost-profile](https://devpost.com/your-username)
 
 ---
