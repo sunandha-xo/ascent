@@ -118,7 +118,7 @@ body::before {
     align-items: center;
     gap: 15px;
     font-size: 10px;
-    color: #8B5CF6;
+    color: #f65ca6;
 }
 
 .logout-btn {
@@ -160,7 +160,7 @@ body::before {
     margin-bottom: 40px;
     padding: 30px;
     background: #111827;
-    border: 3px solid #8B5CF6;
+    border: 3px solid #f65cc8;
     box-shadow: 
         0 0 30px rgba(139, 92, 246, 0.3),
         inset 0 0 40px rgba(139, 92, 246, 0.05);
@@ -180,7 +180,7 @@ body::before {
 
 .welcome-section p, .page-header p {
     font-size: 11px;
-    color: #A78BFA;
+    color: #fa8bd1;
     line-height: 1.8;
     text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
 }
@@ -216,8 +216,8 @@ body::before {
     right: -3px;
     width: 12px;
     height: 12px;
-    background: #8B5CF6;
-    box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+    background: #f65cca;
+    box-shadow: 0 0 10px rgba(246, 92, 197, 0.6);
 }
 
 .input-card {
@@ -235,7 +235,7 @@ body::before {
 }
 
 .card-subtitle {
-    color: #8B5CF6;
+    color: #f65cb1;
     margin-bottom: 25px;
     font-size: 10px;
     line-height: 1.6;
@@ -300,10 +300,10 @@ body::before {
 }
 
 .btn {
-    background: #8B5CF6;
-    border-color: #7C3AED;
+    background: #f65cd5;
+    border-color: #ed3ac6;
     box-shadow: 
-        0 6px 0 #6D28D9,
+        0 6px 0 #d92895,
         0 0 25px rgba(139, 92, 246, 0.4);
 }
 
@@ -315,10 +315,10 @@ body::before {
 }
 
 .btn:hover {
-    background: #7C3AED;
+    background: #ed3a90;
     box-shadow: 
-        0 9px 0 #6D28D9,
-        0 0 35px rgba(139, 92, 246, 0.6);
+        0 9px 0 #d9286c,
+        0 0 35px rgba(246, 92, 161, 0.6);
 }
 
 .generate-btn:active, .btn:active {
@@ -408,7 +408,7 @@ body::before {
 }
 
 .roadmap-content h3 {
-    color: #8B5CF6;
+    color: #f65cb3;
     margin-top: 25px;
     margin-bottom: 12px;
     font-size: 14px;
@@ -474,7 +474,7 @@ body::before {
 }
 
 .stat-label {
-    color: #A78BFA;
+    color: #ff95a9;
     font-size: 10px;
 }
 
